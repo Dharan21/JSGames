@@ -1,0 +1,5 @@
+<div class="board" *ngIf="snakeArr && snakeArr.length > 0">
+    <div *ngFor="let ele of snakeArr" [ngStyle]="{gridRowStart: ele.y, gridColumnStart: ele.x}" class="snake">
+    </div>
+    <div [ngStyle]="{gridRowStart: food.y, gridColumnStart: food.x}" class="food"></div>
+</div>
