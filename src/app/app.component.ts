@@ -11,7 +11,8 @@ export class AppComponent {
   isOpen = false;
 
   games: string[] = [
-    'snacks'
+    'snacks',
+    'tic-tac-toe'
   ];
 
   constructor(

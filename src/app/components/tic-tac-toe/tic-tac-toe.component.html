@@ -1,0 +1,7 @@
+<div class="board">
+    <div *ngFor="let square of board; let i = index" class="square" (click)="onClickSquare(i)">
+        <div [class]="square"></div>
+    </div>
+</div>
+<div class="info">{{ message }}</div>
+<button type="button" class="btn btn-primary" *ngIf="isDisplayResetBtn" (click)="reset()">Reset board</button>

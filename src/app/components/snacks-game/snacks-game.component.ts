@@ -9,7 +9,7 @@ export class SnacksGameComponent implements OnInit, OnDestroy {
     snakeArr: { x: number, y: number }[] = [];
     direction: { x: number, y: number } = { x: 1, y: 0 };
     food: { x: number, y: number } = { x: 15, y: 17 };
-    speed = 7;
+    speed = 10;
     prevDirectionString = '';
     interval!: any;
 
@@ -31,6 +31,7 @@ export class SnacksGameComponent implements OnInit, OnDestroy {
         this.direction = { x: 1, y: 0 };
         this.food = { x: 15, y: 17 };
         this.prevDirectionString = '';
+        this.speed = 10;
         this.generateFood();
         this.interval = setInterval(this.move.bind(this), (1 / this.speed) * 1000);
     }
@@ -51,12 +52,18 @@ export class SnacksGameComponent implements OnInit, OnDestroy {
         this.snakeArr[0].x += this.direction.x;
         this.snakeArr[0].y += this.direction.y;
 
+        if (this.direction.x == 0 && this.direction.y == -1) this.prevDirectionString = 'ArrowUp';
+        else if (this.direction.x == 0 && this.direction.y == 1) this.prevDirectionString = 'ArrowDown';
+        else if (this.direction.x == -1 && this.direction.y == 0) this.prevDirectionString = 'ArrowLeft';
+        else if (this.direction.x == 1 && this.direction.y == 0) this.prevDirectionString = 'ArrowRight';
+
         let snakeHead = this.snakeArr[0];
         if (snakeHead.x == this.food.x && snakeHead.y == this.food.y) {
             this.snakeArr.unshift({
                 x: snakeHead.x + this.direction.x,
                 y: snakeHead.y + this.direction.y
             });
+            this.speed += 1;
             this.generateFood();
         }
     }
@@ -93,28 +100,24 @@ export class SnacksGameComponent implements OnInit, OnDestroy {
                 this.direction = {
                     x: 0, y: -1
                 }
-                this.prevDirectionString = 'ArrowUp';
                 break;
             case 'ArrowDown':
                 if (this.prevDirectionString == 'ArrowUp') return;
                 this.direction = {
                     x: 0, y: 1
                 }
-                this.prevDirectionString = 'ArrowDown';
                 break;
             case 'ArrowLeft':
                 if (this.prevDirectionString == 'ArrowRight') return;
                 this.direction = {
                     x: -1, y: 0
                 }
-                this.prevDirectionString = 'ArrowLeft';
                 break;
             case 'ArrowRight':
                 if (this.prevDirectionString == 'ArrowLeft') return;
                 this.direction = {
                     x: 1, y: 0
                 }
-                this.prevDirectionString = 'ArrowRight';
                 break;
         }
     }
